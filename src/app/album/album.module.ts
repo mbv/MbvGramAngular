@@ -9,6 +9,8 @@ import {AlbumListComponent}  from './album-list.component';
 import {AlbumNewComponent}  from './album-new.component';
 import {AlbumShowComponent}  from './album-show.component';
 import {AlbumService} from "./album.service";
+import {TagService} from "../tag/tag.service";
+import {Select2Module} from "ng2-select2";
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import {AlbumService} from "./album.service";
     FormsModule,
     ReactiveFormsModule,
     AlbumRoutingModule,
-    SharedModule
+    SharedModule,
+    Select2Module
   ],
   declarations: [
     AlbumListComponent,
@@ -25,7 +28,8 @@ import {AlbumService} from "./album.service";
     AlbumShowComponent
   ],
   providers: [
-    AlbumService
+    AlbumService,
+    TagService
   ]
 })
 export class AlbumModule {

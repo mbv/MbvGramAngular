@@ -5,13 +5,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Angular2TokenService} from 'angular2-token';
 
-import { Album } from './album';
+import { Tag } from './tag';
 
 @Injectable()
-export class AlbumService {
+export class TagService {
   headers: Headers;
   options: RequestOptions;
-  private albumsUrl = 'albums';
+  private albumsUrl = 'tags';
 
   constructor(
     private http: Http,
@@ -21,32 +21,20 @@ export class AlbumService {
     this.options = new RequestOptions({headers: this.headers});
   }
 
-  getAlbums(): Observable<Album[]> {
+  getTags(): Observable<Tag[]> {
     return this.tokenService.get(this.albumsUrl)
-      .map((response: Response) => <Album[]>response.json())
+      .map((response: Response) => <Tag[]>response.json())
   }
 
-  getAlbum(id: number) {
+  getTag(id: number) {
     return this.tokenService.get(this.albumsUrl + "/" + id + '.json');
   }
 
-  createAlbum(album: Album): Observable<Album> {
-    return this.tokenService.post(this.albumsUrl, JSON.stringify(album)).map((res: Response) => res.json());
+  createTag(tag: Tag): Observable<Tag> {
+    return this.tokenService.post(this.albumsUrl, JSON.stringify(tag),
+      this.options).map((res: Response) => res.json());
   }
 
-  deleteAlbum(id: number): Observable<Album> {
-    const url = `${this.albumsUrl}/${id}`;
-    return this.tokenService.delete(url)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  updateAlbum(album: Album): Observable<Album> {
-    const url = `${this.albumsUrl}/${album.id}`;
-    return this.tokenService.put(url, JSON.stringify(album),
-      this.options).map((res: Response) => res.json())
-      .catch(this.handleError);
-  }
 
   private extractData(res: Response) {
     let body = res.json();
