@@ -1,0 +1,14 @@
+<div class="ui four stackable cards">
+  <div class="card" *ngFor='let album of albums'>
+    <a (click)="goToShow(album)">
+      <div class="card-block">
+        <h3 class="card-title">{{ album.title }}</h3>
+        <p>
+          <small>Last Updated: {{ album.updated_at | date:'medium' }}</small>
+        </p>
+        <p class="card-text">{{ album.description }}</p>
+        <a class="btn btn-secondary">View Album</a>
+      </div>
+    </a>
+  </div>
+</div>

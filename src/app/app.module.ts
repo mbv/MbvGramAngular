@@ -13,6 +13,7 @@ import { SharedModule }         from './shared/shared.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 
 import { AuthLinksComponent } from './authentication/auth-links.component';
+import { AlbumModule } from "./album/album.module";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthLinksComponent } from './authentication/auth-links.component';
     ReactiveFormsModule,
     AppRoutingModule,
     SharedModule,
-    AuthenticationModule
+    AuthenticationModule,
+    AlbumModule
   ],
   providers: [
     Angular2TokenService
