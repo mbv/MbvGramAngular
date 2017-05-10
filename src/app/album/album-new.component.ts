@@ -27,6 +27,7 @@ export class AlbumNewComponent {
     this.tagsData = this.tagService.getTags();
     this.optionsSelectTags = {
       multiple: true,
+      tags: true,
       closeOnSelect: false
     };
     this.selectedTags = [];
@@ -44,6 +45,6 @@ export class AlbumNewComponent {
   }
 
   changedTags(data: {value: string[]}) {
-    this.album.tag_ids = data.value;
+    this.album.tag_list = data.value;
   }
 }

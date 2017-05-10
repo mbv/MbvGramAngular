@@ -6,7 +6,7 @@
   <p>{{ album.description }}</p>
 
   <button type="button" (click)="deleteAlbum(album)" class="btn btn-danger">Delete</button>
-  <button type="button" (click)="updateAlbum(album)" class="btn btn-primary">Edit</button>
+  <button type="button" (click)="editAlbum(album)" class="btn btn-primary">Edit</button>
 
 
   <div class="row" [hidden]="!editBtnClicked">
@@ -43,7 +43,12 @@
           </div>
         </div>
 
-        <button type="submit" (click)="update(album); onUpdateClicked()" class="btn btn-primary" [disabled]="!albumForm.form.valid">
+        <div class="form-group">
+          <label><h3>Tags of album</h3></label>
+          <select2 [data]="tagsData | async" id="album-tags" [value]="selectedTags | async" (valueChanged)="changedTags($event)" [options]="optionsSelectTags" class="form-control" [width]="300"></select2>
+        </div>
+
+        <button type="submit" (click)="updateAlbum(album); onUpdateClicked()" class="btn btn-primary" [disabled]="!albumForm.form.valid">
           Update Album</button>
       </form>
     </div>

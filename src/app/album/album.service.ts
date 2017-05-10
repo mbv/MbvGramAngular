@@ -9,16 +9,11 @@ import { Album } from './album';
 
 @Injectable()
 export class AlbumService {
-  headers: Headers;
-  options: RequestOptions;
   private albumsUrl = 'albums';
 
   constructor(
-    private http: Http,
     private tokenService: Angular2TokenService
   ){
-    this.headers = new Headers({'Content-Type': 'application/json'});
-    this.options = new RequestOptions({headers: this.headers});
   }
 
   getAlbums(): Observable<Album[]> {
@@ -43,8 +38,7 @@ export class AlbumService {
 
   updateAlbum(album: Album): Observable<Album> {
     const url = `${this.albumsUrl}/${album.id}`;
-    return this.tokenService.put(url, JSON.stringify(album),
-      this.options).map((res: Response) => res.json())
+    return this.tokenService.put(url, JSON.stringify(album)).map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
