@@ -1,0 +1,52 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3 align-center">Create a New Photo</h1>
+    <p class="lead align-center">What photo or Idea for an App would you like to work on?</p>
+  </div>
+</div>
+
+<div class="">
+  <div class="row">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <form (ngSubmit)="createPhoto(photo); photoForm.reset()" #photoForm='ngForm'>
+
+
+
+        <div class="form-group">
+          <label for="photo-description"><h3>Describe your photo</h3></label>
+          <textarea class="form-control" id="photo-description" required
+                    name="description"
+                    #description='ngModel'
+                    [(ngModel)]='photo.description'
+                    rows="3">
+          </textarea>
+          <div [hidden]="description.valid || description.pristine"
+               class="alert alert-danger">
+            Description of your photo is important.
+          </div>
+        </div>
+        <div class="form-group">
+          <label><h3>Tags of photo</h3></label>
+          <select2 [data]="tagsData | async" id="photo-tags" [value]="selectedTags" (valueChanged)="changedTags($event)" [options]="optionsSelectTags" class="form-control" [width]="300"></select2>
+        </div>
+        <div class="form-group">
+          <label><h3>Photo</h3></label>
+          <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="!photoForm.form.valid"
+                [hidden]="submitted">
+          Post Photo
+        </button>
+
+        <!-- Stay hidden until submitted -->
+        <div [hidden]="!submitted"
+             class="alert alert-success" role="alert">
+          Your Photo has been successfully created. <a class="alert-link" routerLink="/photos"> View all Photos </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
