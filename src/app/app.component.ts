@@ -11,7 +11,8 @@ export class AppComponent {
 
   constructor(private _tokenService: Angular2TokenService) {
     this._tokenService.init({
-      apiBase: 'http://localhost:3000'
+      apiBase: 'http://localhost:3000',
+      signOutFailedValidate: true,
     });
   }
 }

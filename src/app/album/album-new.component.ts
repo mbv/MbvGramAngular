@@ -14,7 +14,7 @@ import {Tag} from "../tag/tag";
 export class AlbumNewComponent {
   album = new Album;
   submitted: boolean = false; //check if the form is submitted
-  public tagsData: Observable<Tag[]>;
+  public tagsData: Observable<Array<Select2OptionData>>;
   public optionsSelectTags: Select2Options;
   public selectedTags: string[];
 
@@ -24,11 +24,12 @@ export class AlbumNewComponent {
   ) {}
 
   ngOnInit() {
-    this.tagsData = this.tagService.getTags();
+    this.tagsData = this.tagService.getTagList();
     this.optionsSelectTags = {
       multiple: true,
       tags: true,
-      closeOnSelect: false
+      closeOnSelect: false,
+      tokenSeparators: [','],
     };
     this.selectedTags = [];
   }

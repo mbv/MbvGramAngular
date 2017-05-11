@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Angular2TokenService} from 'angular2-token';
 
-import { Tag } from './tag';
+import {Tag} from './tag';
+import {Select2OptionData} from "ng2-select2";
 
 @Injectable()
 export class TagService {
@@ -13,10 +14,8 @@ export class TagService {
   options: RequestOptions;
   private albumsUrl = 'tags';
 
-  constructor(
-    private http: Http,
-    private tokenService: Angular2TokenService
-  ){
+  constructor(private http: Http,
+              private tokenService: Angular2TokenService) {
     this.headers = new Headers({'Content-Type': 'application/json'});
     this.options = new RequestOptions({headers: this.headers});
   }
@@ -24,6 +23,11 @@ export class TagService {
   getTags(): Observable<Tag[]> {
     return this.tokenService.get(this.albumsUrl)
       .map((response: Response) => <Tag[]>response.json())
+  }
+
+  getTagList(): Observable<Array<Select2OptionData>> {
+    return this.tokenService.get(this.albumsUrl)
+      .map((response: Response) => <Array<Select2OptionData>>(<Tag[]>response.json()).map((tag) => ({id: tag.name, text: tag.name})))
   }
 
   getTag(id: number) {

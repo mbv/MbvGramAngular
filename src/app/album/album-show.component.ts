@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { Album } from './album';
-import { AlbumService } from './album.service';
+import {Component, OnInit, Input} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Http} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import {Album} from './album';
+import {AlbumService} from './album.service';
 import {Tag} from "../tag/tag";
 import {TagService} from "../tag/tag.service";
+import {Select2OptionData} from "ng2-select2";
 
 @Component({
   selector: 'album-show',
@@ -19,16 +20,15 @@ export class AlbumShowComponent implements OnInit {
   errorMessage: any;
   returnUrl: string;
   editBtnClicked: boolean = false;
-  public tagsData: Observable<Tag[]>;
-  public optionsSelectTags: Select2Options;
-  public selectedTags: string[];
+  public tagsData: Observable<Array<Select2OptionData>>;
+  public optionsTagsSelect: Select2Options;
+  public selectedTags: Observable<string[]>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private albumService: AlbumService,
-    private tagService: TagService
-  ) {}
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private albumService: AlbumService,
+              private tagService: TagService) {
+  }
 
   @Input()
   album: Album;
@@ -45,18 +45,22 @@ export class AlbumShowComponent implements OnInit {
 
     albumRequest.subscribe(response => {
       this.album = response.json();
-     /* this.selectedTags = Observable.create((obs) => {
+    });
+    this.tagsData = this.tagService.getTagList();
+
+    this.selectedTags = Observable.create((obs) => {
+      this.tagsData.subscribe(() => {
         obs.next(this.album.tag_list);
         obs.complete();
-      });*/
+      });
     });
-    this.tagsData = this.tagService.getTags();
-    this.optionsSelectTags = {
+
+    this.optionsTagsSelect = {
       multiple: true,
       tags: true,
-      closeOnSelect: false
+      closeOnSelect: false,
+      tokenSeparators: [','],
     };
-    this.selectedTags = ["test"];
   }
 
   deleteAlbum(album: Album) {
@@ -72,10 +76,13 @@ export class AlbumShowComponent implements OnInit {
   editAlbum(album: Album) {
     this.editBtnClicked = true;
   }
+
   updateAlbum(album: Album) {
     this.albumService.updateAlbum(album)
       .subscribe(
-        data => { return true },
+        data => {
+          return true
+        },
         error => {
           console.log("Error Editing Album");
           return Observable.throw(error);
@@ -85,11 +92,11 @@ export class AlbumShowComponent implements OnInit {
   onUpdateClicked() {
     //this.router.navigate([this.returnUrl]);
     this.editBtnClicked = false;
-   // window.location.reload();
+    // window.location.reload();
   }
 
 
-  changedTags(data: {value: string[]}) {
+  changedTags(data: { value: string[] }) {
     this.album.tag_list = data.value;
   }
 }

@@ -45,7 +45,7 @@
 
         <div class="form-group">
           <label><h3>Tags of album</h3></label>
-          <select2 [data]="tagsData | async" id="album-tags" [value]="selectedTags | async" (valueChanged)="changedTags($event)" [options]="optionsSelectTags" class="form-control" [width]="300"></select2>
+          <select2 [data]="tagsData | async" id="album-tags" [value]="selectedTags | async" (valueChanged)="changedTags($event)" [options]="optionsTagsSelect" class="form-control" [width]="300"></select2>
         </div>
 
         <button type="submit" (click)="updateAlbum(album); onUpdateClicked()" class="btn btn-primary" [disabled]="!albumForm.form.valid">
