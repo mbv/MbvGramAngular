@@ -10,6 +10,7 @@ import {Angular2TokenService} from "angular2-token";
 import {GlobalVariable} from "../../globals";
 import {MyFileUploader} from "./MyFileUploader.class";
 import {CookieService} from "angular2-cookie/core";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'photo-new',
@@ -18,6 +19,7 @@ import {CookieService} from "angular2-cookie/core";
 })
 export class PhotoNewComponent {
   photo = new Photo;
+  routeId: any;
   public uploader: MyFileUploader;
   submitted: boolean = false;
   completed: boolean = false;
@@ -25,7 +27,8 @@ export class PhotoNewComponent {
   public optionsSelectTags: Select2Options;
   public selectedTags: string[];
 
-  constructor(private photoService: PhotoService,
+  constructor(private route: ActivatedRoute,
+              private photoService: PhotoService,
               private tagService: TagService,
               private tokenService: Angular2TokenService,
               private cookieService: CookieService) {
@@ -41,7 +44,10 @@ export class PhotoNewComponent {
       tokenSeparators: [','],
     };
     this.selectedTags = [];
-    this.photo.album_id = 2;
+    this.routeId = this.route.params.subscribe(
+      params => {
+        this.photo.album_id = +params['album_id'];
+      });
   }
 
   createPhoto(photo: Photo) {

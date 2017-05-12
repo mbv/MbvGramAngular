@@ -7,6 +7,8 @@ import {AlbumService} from './album.service';
 import {Tag} from "../tag/tag";
 import {TagService} from "../tag/tag.service";
 import {Select2OptionData} from "ng2-select2";
+import {PhotoService} from "./photo/photo.service";
+import {Photo} from "./photo/photo";
 
 @Component({
   selector: 'album-show',
@@ -27,17 +29,21 @@ export class AlbumShowComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private albumService: AlbumService,
+              private photoService: PhotoService,
               private tagService: TagService) {
   }
 
   @Input()
   album: Album;
 
+  photos: Photo[];
+
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/albums';
     this.routeId = this.route.params.subscribe(
       params => {
         this.id = +params['id'];
+        this.getPhotos();
       });
     let albumRequest = this.route.params
       .flatMap((params: Params) =>
@@ -62,6 +68,13 @@ export class AlbumShowComponent implements OnInit {
       tokenSeparators: [','],
     };
   }
+  getPhotos() {
+    this.photoService.getPhotos(this.id)
+      .subscribe(
+        photos => this.photos = photos
+      );
+  }
+
 
   deleteAlbum(album: Album) {
     this.albumService.deleteAlbum(this.album.id)

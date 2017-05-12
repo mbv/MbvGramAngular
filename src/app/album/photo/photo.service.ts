@@ -16,7 +16,7 @@ export class PhotoService {
   }
 
   getPhotos(album_id: number): Observable<Photo[]> {
-    return this.tokenService.get(this.albumsUrl + "/" + album_id + this.photosUrl)
+    return this.tokenService.get(this.albumsUrl + "/" + album_id + "/" + this.photosUrl)
       .map((response: Response) => <Photo[]>response.json())
   }
 

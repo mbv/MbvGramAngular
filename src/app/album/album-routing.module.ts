@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '',        component: AlbumListComponent },
   { path: 'new',     component: AlbumNewComponent },
   { path: ':id',    component: AlbumShowComponent },
-  { path: ':id/photos/new',    component: PhotoNewComponent },
+  { path: ':album_id/photos/new',    component: PhotoNewComponent },
 ];
 
 
