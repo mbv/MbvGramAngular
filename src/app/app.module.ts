@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Angular2TokenService } from 'angular2-token';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,8 @@ import { AlbumModule } from "./album/album.module";
     AlbumModule
   ],
   providers: [
-    Angular2TokenService
+    Angular2TokenService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

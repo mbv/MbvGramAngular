@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Angular2TokenService} from 'angular2-token';
+import {GlobalVariable} from "./globals";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
 
   constructor(private _tokenService: Angular2TokenService) {
     this._tokenService.init({
-      apiBase: 'http://localhost:3000',
+      apiBase: GlobalVariable.BASE_API_URL,
       signOutFailedValidate: true,
     });
   }

@@ -8,7 +8,7 @@
 <div class="">
   <div class="row">
     <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-      <form (ngSubmit)="createPhoto(photo); photoForm.reset()" #photoForm='ngForm'>
+      <form (ngSubmit)="createPhoto(photo);" #photoForm='ngForm'>
 
 
 
@@ -34,17 +34,15 @@
           <input type="file" ng2FileSelect [uploader]="uploader" />
         </div>
 
-
-
         <button type="submit" class="btn btn-primary" [disabled]="!photoForm.form.valid"
                 [hidden]="submitted">
           Post Photo
         </button>
 
         <!-- Stay hidden until submitted -->
-        <div [hidden]="!submitted"
+        <div [hidden]="!completed"
              class="alert alert-success" role="alert">
-          Your Photo has been successfully created. <a class="alert-link" routerLink="/photos"> View all Photos </a>
+          Your Photo has been successfully created. <a class="alert-link" [routerLink]="['/albums', photo.album_id]"> View all Photos </a>
         </div>
       </form>
     </div>

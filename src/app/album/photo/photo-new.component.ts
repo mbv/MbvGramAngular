@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Photo } from './photo';
-import { PhotoService } from './photo.service';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+import {Photo} from './photo';
+import {PhotoService} from './photo.service';
 import {TagService} from "../../tag/tag.service";
 import {Select2OptionData} from "ng2-select2";
 import {Tag} from "../../tag/tag";
 import {FileUploader} from "ng2-file-upload";
 import {Angular2TokenService} from "angular2-token";
-import {Headers} from "ng2-file-upload";
-
-
-const URL = 'http://localhost:3000/albums/2/photos';
+import {GlobalVariable} from "../../globals";
+import {MyFileUploader} from "./MyFileUploader.class";
+import {CookieService} from "angular2-cookie/core";
 
 @Component({
   selector: 'photo-new',
@@ -19,17 +18,19 @@ const URL = 'http://localhost:3000/albums/2/photos';
 })
 export class PhotoNewComponent {
   photo = new Photo;
-  public uploader:FileUploader = new FileUploader({url: URL});
-  submitted: boolean = false; //check if the form is submitted
+  public uploader: MyFileUploader;
+  submitted: boolean = false;
+  completed: boolean = false;
   public tagsData: Observable<Array<Select2OptionData>>;
   public optionsSelectTags: Select2Options;
   public selectedTags: string[];
 
-  constructor(
-    private photoService: PhotoService,
-    private tagService: TagService,
-    private tokenService: Angular2TokenService
-  ) {}
+  constructor(private photoService: PhotoService,
+              private tagService: TagService,
+              private tokenService: Angular2TokenService,
+              private cookieService: CookieService) {
+    this.uploader = new MyFileUploader(tokenService, cookieService);
+  }
 
   ngOnInit() {
     this.tagsData = this.tagService.getTagList();
@@ -41,38 +42,32 @@ export class PhotoNewComponent {
     };
     this.selectedTags = [];
     this.photo.album_id = 2;
-
-    let headers = this.tokenService.currentAuthHeaders;
-    headers.forEach((values, name) => {
-      console.log(name, values);
-    });
   }
 
   createPhoto(photo: Photo) {
     this.submitted = true;
 
-    let headers = this.tokenService.currentAuthHeaders;
-    headers.forEach((name, value) => {
-      ({name: name, value: value[0]})
-    });
+    let url = `${GlobalVariable.BASE_API_URL}/albums/${photo.album_id}/photos`;
+    let data = {
+      album_id: photo.album_id,
+      description: photo.description,
+      tag_list: photo.tag_list,
+    };
 
-
-
-
-    this.uploader.setOptions({
-
-    });
-
-    /*this.photoService.createPhoto(photo)
-      .subscribe(
-        data => { return true },
-        error => {
-          console.log("Error creating photo");
-          return Observable.throw(error);
-        });*/
+    this.uploader.upload(url, data).subscribe(
+      data => {
+        console.log(data);
+        this.completed = true;
+        return true;
+      },
+      error => {
+        console.log("Error creating photo");
+        this.submitted = false;
+        return Observable.throw(error);
+      });
   }
 
-  changedTags(data: {value: string[]}) {
+  changedTags(data: { value: string[] }) {
     this.photo.tag_list = data.value;
   }
 }
