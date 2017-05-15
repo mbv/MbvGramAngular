@@ -13,7 +13,9 @@ import {AlbumService} from "./album.service";
 import {TagService} from "../tag/tag.service";
 import {Select2Module} from "ng2-select2";
 import {PhotoNewComponent} from "./photo/photo-new.component";
+import {PhotoShowComponent} from "./photo/photo-show.component";
 import {PhotoService} from "./photo/photo.service";
+import {CommentService} from "./photo/comments/comment.service";
 
 
 @NgModule({
@@ -30,12 +32,14 @@ import {PhotoService} from "./photo/photo.service";
     AlbumListComponent,
     AlbumNewComponent,
     AlbumShowComponent,
-    PhotoNewComponent
+    PhotoNewComponent,
+    PhotoShowComponent
   ],
   providers: [
     AlbumService,
     TagService,
-    PhotoService
+    PhotoService,
+    CommentService
   ]
 })
 export class AlbumModule {

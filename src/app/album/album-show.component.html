@@ -45,25 +45,31 @@
 
         <div class="form-group">
           <label><h3>Tags of album</h3></label>
-          <select2 [data]="tagsData | async" id="album-tags" [value]="selectedTags | async" (valueChanged)="changedTags($event)" [options]="optionsTagsSelect" class="form-control" [width]="300"></select2>
+          <select2 [data]="tagsData | async" id="album-tags" [value]="selectedTags | async"
+                   (valueChanged)="changedTags($event)" [options]="optionsTagsSelect" class="form-control"
+                   [width]="300"></select2>
         </div>
 
-        <button type="submit" (click)="updateAlbum(album); onUpdateClicked()" class="btn btn-primary" [disabled]="!albumForm.form.valid">
-          Update Album</button>
+        <button type="submit" (click)="updateAlbum(album); onUpdateClicked()" class="btn btn-primary"
+                [disabled]="!albumForm.form.valid">
+          Update Album
+        </button>
       </form>
     </div>
   </div>
 
-  <div class="ui four stackable cards">
+  <div class="ui four stackable cards photo-list">
     <div class="card" *ngFor='let photo of photos'>
       <a (click)="goToShowPhoto(photo)">
-        <img class="card-img-top" src="http://localhost:3000/{{photo.file.small_thumb.url}}" alt="Photo" style="max-width: 100px; max-height: 100px">
+        <div class="photo">
+          <img class="card-img-top" src="http://localhost:3000/{{photo.file.small_thumb.url}}" alt="Photo"
+               style="max-width: 100px; max-height: 100px">
+        </div>
         <div class="card-block">
+          <p class="card-text">{{ photo.description }}</p>
           <p>
             <small>Last Updated: {{ photo.updated_at | date:'medium' }}</small>
           </p>
-          <p class="card-text">{{ photo.description }}</p>
-          <a class="btn btn-secondary">View Photo</a>
         </div>
       </a>
     </div>

@@ -102,6 +102,12 @@ export class AlbumShowComponent implements OnInit {
         });
   }
 
+
+  goToShowPhoto(photo: Photo): void {
+    let link = ['/albums', photo.album_id, 'photos', photo.id];
+    this.router.navigate(link);
+  }
+
   onUpdateClicked() {
     //this.router.navigate([this.returnUrl]);
     this.editBtnClicked = false;

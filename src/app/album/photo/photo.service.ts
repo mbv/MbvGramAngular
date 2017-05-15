@@ -20,8 +20,8 @@ export class PhotoService {
       .map((response: Response) => <Photo[]>response.json())
   }
 
-  getPhoto(album_id: number, id: number) {
-    return this.tokenService.get(this.albumsUrl + "/" + album_id + this.photosUrl + "/" + id + '.json');
+  getPhoto(id: number) {
+    return this.tokenService.get(this.photosUrl + "/" + id + '.json');
   }
 
   createPhoto(photo: Photo): Observable<Photo> {

@@ -8,3 +8,9 @@
   padding: 0;
   border: none;
 }
+.photo-list {
+  margin-top: 10px;
+}
+.photo-list .photo {
+  text-align: center;
+}

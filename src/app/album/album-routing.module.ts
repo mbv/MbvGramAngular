@@ -6,12 +6,14 @@ import {AlbumShowComponent} from "./album-show.component";
 import {AlbumNewComponent} from "./album-new.component";
 import {LoggedInGuard} from "../authentication/logged-in-guard.service";
 import {PhotoNewComponent} from "./photo/photo-new.component";
+import {PhotoShowComponent} from "./photo/photo-show.component";
 
 const routes: Routes = [
   { path: '',        component: AlbumListComponent },
   { path: 'new',     component: AlbumNewComponent },
   { path: ':id',    component: AlbumShowComponent },
   { path: ':album_id/photos/new',    component: PhotoNewComponent },
+  { path: ':album_id/photos/:id',    component: PhotoShowComponent },
 ];
 
 
