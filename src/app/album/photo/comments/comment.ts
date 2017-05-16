@@ -7,6 +7,7 @@ export class Comment {
               },
               public user_id?: number,
               public photo?: Photo,
+              public photo_id?: number,
               public text?: string,
               public created_at?: string,
               public updated_at?: string,) {

@@ -15,6 +15,9 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
 import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AlbumModule } from "./album/album.module";
+import { Ng2Cable, Broadcaster } from 'ng2-cable/js';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+
 
 @NgModule({
   declarations: [
@@ -31,11 +34,15 @@ import { AlbumModule } from "./album/album.module";
     AppRoutingModule,
     SharedModule,
     AuthenticationModule,
-    AlbumModule
+    AlbumModule,
+    ToasterModule
   ],
   providers: [
     Angular2TokenService,
-    CookieService
+    CookieService,
+    Ng2Cable,
+    Broadcaster,
+    ToasterService
   ],
   bootstrap: [AppComponent]
 })
