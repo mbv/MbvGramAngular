@@ -57,7 +57,7 @@ export class PhotoNewComponent {
     let data = {
       album_id: photo.album_id,
       description: photo.description,
-      tag_list: photo.tag_list,
+      tag_list: JSON.stringify(photo.tag_list),
     };
 
     this.uploader.upload(url, data).subscribe(
@@ -74,6 +74,6 @@ export class PhotoNewComponent {
   }
 
   changedTags(data: { value: string[] }) {
-    this.photo.tag_list = data.value;
+    this.photo.tag_list = data.value.map(name => ({name: name}));
   }
 }

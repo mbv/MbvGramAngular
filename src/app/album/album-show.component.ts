@@ -68,6 +68,7 @@ export class AlbumShowComponent implements OnInit {
       tokenSeparators: [','],
     };
   }
+
   getPhotos() {
     this.photoService.getPhotos(this.id)
       .subscribe(
@@ -88,6 +89,11 @@ export class AlbumShowComponent implements OnInit {
 
   editAlbum(album: Album) {
     this.editBtnClicked = true;
+  }
+
+  addPhoto(album: Album) {
+    let link = ['/albums', album.id, 'photos', 'new'];
+    this.router.navigate(link);
   }
 
   updateAlbum(album: Album) {

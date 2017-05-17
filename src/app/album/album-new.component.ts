@@ -35,10 +35,11 @@ export class AlbumNewComponent {
   }
 
   createAlbum(album: Album) {
-    this.submitted = true;
+
     this.albumService.createAlbum(album)
       .subscribe(
-        data => { return true },
+        data => { this.submitted = true;
+        return true },
         error => {
           console.log("Error creating album");
           return Observable.throw(error);
@@ -46,6 +47,6 @@ export class AlbumNewComponent {
   }
 
   changedTags(data: {value: string[]}) {
-    this.album.tag_list = data.value;
+    this.album.tag_list = data.value.map(name => ({name: name}));
   }
 }
