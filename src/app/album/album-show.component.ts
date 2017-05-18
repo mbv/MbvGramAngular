@@ -121,7 +121,7 @@ export class AlbumShowComponent implements OnInit {
   }
 
 
-  changedTags(data: { value: string[] }) {
-    this.album.tag_list = data.value;
+  changedTags(data: {value: string[]}) {
+    this.album.tag_list = data.value.map(name => ({name: name}));
   }
 }
