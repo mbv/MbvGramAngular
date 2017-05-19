@@ -149,6 +149,6 @@ export class PhotoShowComponent implements OnInit {
 
 
   changedTags(data: { value: string[] }) {
-    this.photo.tag_list = data.value;
+    this.photo.tag_list = data.value.map(name => ({name: name}));
   }
 }

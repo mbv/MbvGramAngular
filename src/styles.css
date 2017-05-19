@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.completer-title {
+  font-weight: bold;
+  display: block;
+}
+.completer-description {
+  display: block;
+}
+.completer-image {
+  max-width: 20px;
+  max-height: 20px;
+}

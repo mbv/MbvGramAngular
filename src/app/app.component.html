@@ -1,6 +1,6 @@
-
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -16,7 +16,10 @@
         <a class="nav-link" routerLink="/albums" routerLinkActive="active">Albums</a>
       </li>
     </ul>
-
+    <ng2-completer [(ngModel)]="searchext" [datasource]="dataService" [minSearchLength]="0"
+                   [inputClass]="['form-control']" (selected)="onSearchSelected($event)"
+                   [clearUnselected]="true" [clearSelected]="true"
+                   [fillHighlighted]="false"></ng2-completer>
   </div>
   <form class="form-inline my-2 my-lg-0">
     <app-auth-links></app-auth-links>

@@ -17,6 +17,8 @@ import { AuthLinksComponent } from './authentication/auth-links.component';
 import { AlbumModule } from "./album/album.module";
 import { Ng2Cable, Broadcaster } from 'ng2-cable/js';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {Ng2CompleterModule} from "ng2-completer";
+import {SearchService} from "./search/search.service";
 
 
 @NgModule({
@@ -35,14 +37,16 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
     SharedModule,
     AuthenticationModule,
     AlbumModule,
-    ToasterModule
+    ToasterModule,
+    Ng2CompleterModule
   ],
   providers: [
     Angular2TokenService,
     CookieService,
     Ng2Cable,
     Broadcaster,
-    ToasterService
+    ToasterService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })
