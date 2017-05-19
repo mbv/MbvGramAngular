@@ -19,6 +19,7 @@ import { Ng2Cable, Broadcaster } from 'ng2-cable/js';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Ng2CompleterModule} from "ng2-completer";
 import {SearchService} from "./search/search.service";
+import {UserModule} from "./user/user.module";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {SearchService} from "./search/search.service";
     AuthenticationModule,
     AlbumModule,
     ToasterModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    UserModule
   ],
   providers: [
     Angular2TokenService,
