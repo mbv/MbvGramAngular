@@ -1,26 +1,51 @@
 import {Subject} from "rxjs/Subject";
 import {CompleterData, CompleterItem} from "ng2-completer";
 import {SearchService} from "./search.service";
+import {Router} from "@angular/router";
 
 
 export class SearchCompleterData extends Subject<CompleterItem[]> implements CompleterData {
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService,
+              private router: Router) {
     super();
   }
 
   public search(term: string): void {
-    if (term) {
-      this.searchService.search(term).subscribe((data: any) => {
-        let matches: CompleterItem[] = data.map((result: any) => {
-          return {
-            title: SearchCompleterData.titleByType(result),
-            description: SearchCompleterData.descriptionByType(result),
-            image: SearchCompleterData.imageByType(result),
-            originalObject: result,
-          }
-        });
-        this.next(matches);
+    this.searchService.search(term).subscribe((data: any) => {
+      let matches: CompleterItem[] = data.map((result: any) => {
+        return {
+          title: SearchCompleterData.titleByType(result),
+          description: SearchCompleterData.descriptionByType(result),
+          image: SearchCompleterData.imageByType(result),
+          originalObject: result,
+        }
       });
+      this.next(matches);
+    });
+  }
+
+  public goTo(selected: CompleterItem):void{
+    if (!selected) {
+      return;
+    }
+    let o = selected.originalObject;
+    switch (o.object_type) {
+      case 'User': {
+        let link = ['/users', o.id];
+        this.router.navigate(link);
+        break;
+      }
+
+      case 'Album': {
+        let link = ['/albums', o.id];
+        this.router.navigate(link);
+        break;
+      }
+      case 'Photo': {
+        let link = ['/albums', o.album_id, 'photos', o.id];
+        this.router.navigate(link);
+        break;
+      }
     }
   }
 

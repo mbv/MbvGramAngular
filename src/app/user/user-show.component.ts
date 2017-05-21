@@ -43,5 +43,9 @@ export class UserShowComponent implements OnInit {
     });
   }
 
+  followUser(user:User) {
+    this.userService.followUser(user.id);
+  }
+
 
 }

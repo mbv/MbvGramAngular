@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {Angular2TokenService} from 'angular2-token';
 import {GlobalVariable} from "./globals";
 import {Broadcaster, Ng2Cable} from "ng2-cable/js";
@@ -16,69 +16,61 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'app works!';
-  protected text: string;
-  protected dataService: CompleterData;
+  protected dataService: SearchCompleterData;
 
   constructor(private _tokenService: Angular2TokenService,
               private ng2cable: Ng2Cable,
               private broadcaster: Broadcaster,
               private toasterService: ToasterService,
               private searchService: SearchService,
-              private router: Router) {
+              private router: Router,) {
     this._tokenService.init({
       apiBase: GlobalVariable.BASE_API_URL,
       signOutFailedValidate: true,
     });
 
-    this.dataService = new SearchCompleterData(searchService);// completerService.remote(`${GlobalVariable.BASE_API_URL}/search/`, null, 'search_result').descriptionField('search_description');
+    this.dataService = new SearchCompleterData(searchService, router);
 
 
-    let authData = this._tokenService.currentAuthData;
+    if (this._tokenService.userSignedIn()) {
 
-    let authDataUrlQuery = `?access-token=${authData.accessToken}&client=${authData.client}&uid=${authData.uid}`;
+      let authData = this._tokenService.currentAuthData;
 
-    this.ng2cable.subscribe(`${GlobalVariable.BASE_API_URL}/cable${authDataUrlQuery}`, 'CommentsChannel');
+      let authDataUrlQuery = `?access-token=${authData.accessToken}&client=${authData.client}&uid=${authData.uid}`;
 
-    this.broadcaster.on<string>('CommentsChannel').subscribe(
-      (message) => {
-        let comment = <Comment>((<any>message).comment);
-        let user = ((<any>message).user);
+      this.ng2cable.subscribe(`${GlobalVariable.BASE_API_URL}/cable${authDataUrlQuery}`, 'CommentsChannel');
 
-        let toast: Toast = {
-          type: 'info',
-          title: 'New Comment on Photo #' + comment.photo_id,
-          body: '<strong>' + user.first_name + ' ' + user.last_name + '</strong>:' + comment.text,
-          bodyOutputType: BodyOutputType.TrustedHtml
-        };
-        this.toasterService.pop(toast);
-      }
-    );
+      this.broadcaster.on<string>('CommentsChannel').subscribe(
+        (message) => {
+          let comment = <Comment>((<any>message).comment);
+          let user = ((<any>message).user);
+          comment.photo = ((<any>message).photo);
+
+          let toast: Toast = {
+            type: 'info',
+            title: 'New Comment on Photo #' + comment.photo_id,
+            body: '<strong>' + user.first_name + ' ' + user.last_name + '</strong>:' + comment.text,
+            bodyOutputType: BodyOutputType.TrustedHtml,
+            clickHandler: this.returnHandlerCommentPushClick(comment)
+          };
+          this.toasterService.pop(toast);
+        }
+      );
+    }
   }
 
-  public goTo(o: any): void {
-    switch (o.object_type) {
-      case 'User': {
-        let link = ['/users', o.id];
-        this.router.navigate(link);
-        break;
+  public returnHandlerCommentPushClick(comment: Comment): (toast: Toast, isCloseButton?: boolean) => boolean {
+    let router = this.router;
+    return function(toast: Toast, isCloseButton?: boolean):boolean {
+      if (!isCloseButton) {
+        let link = ['/albums', comment.photo.album_id, 'photos', comment.photo.id];
+        router.navigate(link);
       }
-
-      case 'Album': {
-        let link = ['/albums', o.id];
-        this.router.navigate(link);
-        break;
-      }
-      case 'Photo': {
-        let link = ['/albums', o.album_id, 'photos', o.id];
-        this.router.navigate(link);
-        break;
-      }
+      return true;
     }
   }
 
   public onSearchSelected(selected: CompleterItem) {
-    if (selected) {
-      this.goTo(selected.originalObject);
-    }
+      this.dataService.goTo(selected);
   }
 }

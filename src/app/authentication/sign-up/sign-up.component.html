@@ -35,6 +35,15 @@
                            [submitted]="submitted">
           </app-input-field>
         </div>
+        <div class="field">
+          <app-input-field [attribute]="'Last Name'"
+                           [type]="'text'"
+                           [placeholder]="'Last Name'"
+                           [icon]="'user icon'"
+                           [control]="signupForm.controls['last_name']"
+                           [submitted]="submitted">
+          </app-input-field>
+        </div>
         <button class="ui positive basic button" type="submit">Submit</button>
       </div>
 

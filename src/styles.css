@@ -10,3 +10,9 @@
   max-width: 20px;
   max-height: 20px;
 }
+body.modal-open {
+  zoom: 1;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+}

@@ -20,12 +20,13 @@ export class AuthService {
     });
   }
 
-  signUp(email: string, password: string, first_name: string): Observable<Response> {
+  signUp(email: string, password: string, first_name: string, last_name:string): Observable<Response> {
     return this.tokenService.registerAccount({
       email: email,
       password: password,
       passwordConfirmation: password,
-      first_name: first_name
+      first_name: first_name,
+      last_name: last_name
     });
   }
 

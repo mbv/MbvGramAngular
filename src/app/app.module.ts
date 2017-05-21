@@ -20,6 +20,10 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {Ng2CompleterModule} from "ng2-completer";
 import {SearchService} from "./search/search.service";
 import {UserModule} from "./user/user.module";
+import {FeedComponent} from "./feed/feed.component";
+import {TimeAgoPipe} from "time-ago-pipe";
+import {BootstrapModalModule} from "ng2-bootstrap-modal";
+import {PhotoModalComponent} from "./album/photo/photo-modal.component";
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import {UserModule} from "./user/user.module";
     AppComponent,
     AccountComponent,
     HomepageComponent,
-    AuthLinksComponent
+    AuthLinksComponent,
+    FeedComponent,
+    TimeAgoPipe,
+    PhotoModalComponent
+
   ],
   imports: [
     BrowserModule,
@@ -40,7 +48,8 @@ import {UserModule} from "./user/user.module";
     AlbumModule,
     ToasterModule,
     Ng2CompleterModule,
-    UserModule
+    UserModule,
+    BootstrapModalModule
   ],
   providers: [
     Angular2TokenService,
@@ -49,6 +58,9 @@ import {UserModule} from "./user/user.module";
     Broadcaster,
     ToasterService,
     SearchService
+  ],
+  entryComponents: [
+    PhotoModalComponent
   ],
   bootstrap: [AppComponent]
 })

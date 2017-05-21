@@ -24,7 +24,8 @@ export class SignUpComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', Validators.required],
-      first_name: ['', Validators.required]
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required]
     });
   }
 
@@ -32,7 +33,7 @@ export class SignUpComponent implements OnInit {
     this.submitted = true;
     if (!this.signupForm.valid) { return; }
 
-    this.authService.signUp(value.email, value.password, value.first_name).subscribe(
+    this.authService.signUp(value.email, value.password, value.first_name, value.last_name).subscribe(
       this.authService.redirectAfterLogin.bind(this.authService),
       this.afterFailedLogin.bind(this));
   }

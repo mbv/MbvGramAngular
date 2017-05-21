@@ -20,6 +20,11 @@ export class PhotoService {
       .map((response: Response) => <Photo[]>response.json())
   }
 
+  getPhotoFeed(): Observable<Photo[]> {
+    return this.tokenService.get(this.photosUrl + "/feed")
+      .map((response: Response) => <Photo[]>response.json())
+  }
+
   getPhoto(id: number) {
     return this.tokenService.get(this.photosUrl + "/" + id + '.json');
   }

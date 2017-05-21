@@ -1,0 +1,20 @@
+<div class="photos">
+    <div class="photo" *ngFor='let photo of photos'>
+      <a (click)="goToShow(photo)">
+          <div class="photo-img-wrapper">
+          <img class="photo-img" src="http://localhost:3000/{{photo.file.thumb.url}}" alt="Photo"></div>
+        <div class="photo-info">
+          <div class="photo-user">
+            <a (click)="goToUser(photo.user)">
+            <span class="photo-user-img-wrapper"><img class="photo-user-img" src="{{photo.user.image}}" alt="User"></span>
+            <span class="photo-user-name">{{photo.user.first_name }} {{ photo.user.last_name }}</span></a>
+          </div>
+          <div class="photo-time"><span>{{ photo.created_at | timeAgo }}</span></div>
+          <div class="photo-album">
+            <a (click)="goToAlbum(photo.album)"><i
+              class="fa fa-book" aria-hidden="true"></i> {{ photo.album.title }}</a>
+          </div>
+        </div>
+      </a>
+    </div>
+</div>
