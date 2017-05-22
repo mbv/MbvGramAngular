@@ -14,3 +14,46 @@
 .photo-list .photo {
   text-align: center;
 }
+
+
+.image_grid {
+  display: block;
+  float: left;
+}
+.nim-peer .nim-peer--photo {
+  background-color: inherit;
+  overflow: hidden;
+  margin-left: -2px;
+  margin-bottom: -1px;
+}
+
+.nim-peer .nim-peer--photo-w {
+  overflow: hidden;
+  border-radius: 50%;
+}
+.nim-peer {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  border-color: inherit;
+  background-color: inherit;
+  margin: 10px auto;
+}
+.nim-dialog .nim-dialog--photo {
+  border-color: #fff;
+  padding: 9px 7px 8px 0;
+  float: left;
+}
+.nim-peer .image_grid>.dialogs_inline_chatter {
+  overflow: hidden;
+  width: 100px;
+  height: 99.5px;
+  margin-left: 1px;
+  margin-bottom: 1px;
+}
+.nim-dialog.nim-dialog_classic .nim-dialog--photo .nim-peer .image_grid>.dialogs_inline_chatter img {
+  margin-left: -11.5px;
+  margin-top: -12.5px;
+  width: 200px;
+  height: 200px;
+}

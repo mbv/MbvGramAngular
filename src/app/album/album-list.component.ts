@@ -19,8 +19,7 @@ export class AlbumListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let timer = Observable.timer(0, 30000);
-    timer.subscribe(() => this.getAlbums());
+    this.getAlbums();
   }
 
   getAlbums() {

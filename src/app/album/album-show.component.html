@@ -5,9 +5,9 @@
   <p>{{ album.id }}</p>
   <p>{{ album.description }}</p>
 
-  <button type="button" (click)="deleteAlbum(album)" class="btn btn-danger">Delete</button>
-  <button type="button" (click)="editAlbum(album)" class="btn btn-primary">Edit</button>
-  <button type="button" (click)="addPhoto(album)" class="btn btn-info">Add Photo</button>
+  <button type="button" (click)="deleteAlbum(album)" class="btn btn-danger" [hidden]="!album.can_delete">Delete</button>
+  <button type="button" (click)="editAlbum(album)" class="btn btn-primary" [hidden]="!album.can_update">Edit</button>
+  <button type="button" (click)="addPhoto(album)" class="btn btn-info" [hidden]="!album.can_add_photo">Add Photo</button>
 
 
   <div class="row" [hidden]="!editBtnClicked">

@@ -10,6 +10,9 @@ export class Photo {
               public user?: User,
               public tag_list?: Tag[],
               public created_at?: string,
-              public updated_at?: string,) {
+              public updated_at?: string,
+              public can_update?: boolean,
+              public can_delete?: boolean,
+  ) {
   }
 }

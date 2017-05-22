@@ -2,9 +2,46 @@
   <h2>
     {{ user.first_name }} {{ user.last_name }}
   </h2>
+  <img src="{{ user.image }}" alt="Photo"/>
   <p>
     {{ user.address }}
   </p>
 
-  <button type="button" (click)="followUser(user)" class="btn btn-info">Follow</button>
+  <button type="button" (click)="followUser(user)" class="btn btn-info" [hidden]="!user.can_follow">Follow</button>
+  <button type="button" (click)="unfollowUser(user)" class="btn btn-danger" [hidden]="!user.can_unfollow">Unfollow
+  </button>
+  <div class="user-content" [hidden]="!user.can_show_content">
+    <p>
+      Albums:
+    </p>
+    <div class="albums">
+      <div class="ui four stackable cards">
+        <div class="card" *ngFor='let album of albums'>
+          <a (click)="goToShowAlbum(album)">
+            <div class="photo-collage-wrapper">
+              <div class="photo-collage">
+                <div class="photo-wrapper">
+                  <div class="photo">
+                    <div class="image_grid" *ngFor='let photo of album.sample_photos'>
+                      <div class="photo-img-wrapper">
+                        <img class="photo-img"
+                             src="http://localhost:3000/{{ photo.file.small_thumb.url }}"
+                             width="100" height="100" alt="Photo"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-block">
+              <h3 class="card-title">{{ album.title }}</h3>
+              <p>
+                <small>Last Updated: {{ album.updated_at | date:'medium' }}</small>
+              </p>
+              <p class="card-text">{{ album.description }}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

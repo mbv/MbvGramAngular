@@ -9,6 +9,8 @@ import {TagService} from "../tag/tag.service";
 import {Select2OptionData} from "ng2-select2";
 import {PhotoService} from "./photo/photo.service";
 import {Photo} from "./photo/photo";
+import {PhotoModalComponent} from "app/album/photo/photo-modal.component";
+import {DialogService} from "ng2-bootstrap-modal";
 
 @Component({
   selector: 'album-show',
@@ -30,7 +32,8 @@ export class AlbumShowComponent implements OnInit {
               private router: Router,
               private albumService: AlbumService,
               private photoService: PhotoService,
-              private tagService: TagService) {
+              private tagService: TagService,
+              private dialogService:DialogService) {
   }
 
   @Input()
@@ -66,6 +69,7 @@ export class AlbumShowComponent implements OnInit {
       tags: true,
       closeOnSelect: false,
       tokenSeparators: [','],
+
     };
   }
 
@@ -110,8 +114,7 @@ export class AlbumShowComponent implements OnInit {
 
 
   goToShowPhoto(photo: Photo): void {
-    let link = ['/albums', photo.album_id, 'photos', photo.id];
-    this.router.navigate(link);
+    this.dialogService.addDialog(PhotoModalComponent, {photo: photo}, { backdropColor: 'rgba(0, 0, 0, 0.7)', closeByClickingOutside: true});
   }
 
   onUpdateClicked() {

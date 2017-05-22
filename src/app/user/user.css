@@ -1,0 +1,30 @@
+.image_grid {
+  display: block;
+  float: left;
+}
+.photo-collage .photo {
+  background-color: inherit;
+  overflow: hidden;
+  margin-left: -2px;
+  margin-bottom: -1px;
+}
+
+.photo-collage .photo-wrapper {
+  overflow: hidden;
+  border-radius: 50%;
+}
+.photo-collage {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  border-color: inherit;
+  background-color: inherit;
+  margin: 10px auto;
+}
+.photo-collage .image_grid>.photo-img-wrapper {
+  overflow: hidden;
+  width: 100px;
+  height: 99.5px;
+  margin-left: 1px;
+  margin-bottom: 1px;
+}

@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import {DialogComponent, DialogService} from "ng2-bootstrap-modal";
 import {Photo} from "./photo";
 import {CommentService} from "./comments/comment.service";
 import {Comment} from './comments/comment';
 import {Observable} from "rxjs";
 import {Angular2TokenService} from "angular2-token";
+import {User} from "../../user/user";
+import {Router} from "@angular/router";
 export interface PhotoModalModel {
-  photo:Photo;
+  photo: Photo;
 }
 @Component({
   selector: 'confirm',
@@ -21,9 +23,13 @@ export class PhotoModalComponent extends DialogComponent<PhotoModalModel, boolea
   submitted: boolean = false;
   errorMessage: any;
 
-  constructor(dialogService: DialogService, private commentService: CommentService, private tokenService: Angular2TokenService,) {
+  constructor(dialogService: DialogService,
+              private commentService: CommentService,
+              private tokenService: Angular2TokenService,
+              private router: Router,) {
     super(dialogService);
   }
+
   ngOnInit() {
     this.getComments();
     let body = document.getElementsByTagName('body')[0];
@@ -35,12 +41,19 @@ export class PhotoModalComponent extends DialogComponent<PhotoModalModel, boolea
     body.classList.remove('modal-open');   //remove the class
   }
 
+  goToUser(user: User): void {
+    let link = ['/users', user.id];
+    this.dialogService.removeAll();
+    this.router.navigate(link);
+  }
+
   getComments() {
     this.commentService.getComments(this.photo)
       .subscribe(
         comments => this.comments = comments
       );
   }
+
   createComment(comment: Comment) {
     this.submitted = true;
 

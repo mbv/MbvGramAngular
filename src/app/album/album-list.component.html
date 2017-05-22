@@ -1,14 +1,29 @@
-<div class="ui four stackable cards">
-  <div class="card" *ngFor='let album of albums'>
-    <a (click)="goToShow(album)">
-      <div class="card-block">
-        <h3 class="card-title">{{ album.title }}</h3>
-        <p>
-          <small>Last Updated: {{ album.updated_at | date:'medium' }}</small>
-        </p>
-        <p class="card-text">{{ album.description }}</p>
-        <a class="btn btn-secondary">View Album</a>
-      </div>
-    </a>
+<div class="container">
+  <div class="ui four stackable cards">
+    <div class="card" *ngFor='let album of albums'>
+      <a (click)="goToShow(album)">
+        <div class="nim-dialog--photo">
+          <div class="nim-peer _online _im_peer_online">
+            <div class="nim-peer--photo-w">
+              <div class="nim-peer--photo _im_dialog_photo">
+                <div class="image_grid" *ngFor='let photo of album.sample_photos'>
+                  <div class="dialogs_inline_chatter " style="">
+                    <img class="dialogs_inline_chatter "
+                         src="http://localhost:3000/{{ photo.file.small_thumb.url }}"
+                         width="100" height="100" alt="Photo"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-block">
+          <h3 class="card-title">{{ album.title }}</h3>
+          <p>
+            <small>Last Updated: {{ album.updated_at | date:'medium' }}</small>
+          </p>
+          <p class="card-text">{{ album.description }}</p>
+        </div>
+      </a>
+    </div>
   </div>
 </div>

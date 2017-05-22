@@ -10,6 +10,7 @@ import { Album } from './album';
 @Injectable()
 export class AlbumService {
   private albumsUrl = 'albums';
+  private usersUrl = 'users';
 
   constructor(
     private tokenService: Angular2TokenService
@@ -18,6 +19,11 @@ export class AlbumService {
 
   getAlbums(): Observable<Album[]> {
     return this.tokenService.get(this.albumsUrl)
+      .map((response: Response) => <Album[]>response.json())
+  }
+
+  getUserAlbums(user_id:number): Observable<Album[]> {
+    return this.tokenService.get(`${this.usersUrl}/${user_id}/${this.albumsUrl}`)
       .map((response: Response) => <Album[]>response.json())
   }
 
