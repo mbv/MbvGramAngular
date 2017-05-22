@@ -18,7 +18,7 @@
         <a class="nav-link" routerLink="/albums" routerLinkActive="active">Albums</a>
       </li>
     </ul>
-    <ng2-completer [(ngModel)]="searchext" [datasource]="dataService" [minSearchLength]="0"
+    <ng2-completer [datasource]="dataService" [minSearchLength]="0"
                    [inputClass]="['form-control']" (selected)="onSearchSelected($event)"
                    [clearUnselected]="true" [clearSelected]="true"
                    [fillHighlighted]="false"></ng2-completer>

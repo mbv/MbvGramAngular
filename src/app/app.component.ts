@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'app works!';
-  protected dataService: SearchCompleterData;
+  public dataService: SearchCompleterData;
 
   constructor(private _tokenService: Angular2TokenService,
               private ng2cable: Ng2Cable,
