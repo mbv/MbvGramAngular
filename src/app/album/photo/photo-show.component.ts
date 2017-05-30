@@ -86,7 +86,7 @@ export class PhotoShowComponent implements OnInit {
     this.submitted = true;
 
     comment.photo = this.photo;
-    comment.user_id = this.tokenService.currentUserData.id;
+    comment.photo_id = this.photo.id;
 
     this.commentService.createComment(comment)
       .subscribe(
